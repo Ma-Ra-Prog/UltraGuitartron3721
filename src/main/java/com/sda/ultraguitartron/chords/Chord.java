@@ -1,7 +1,11 @@
 package com.sda.ultraguitartron.chords;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sda.ultraguitartron.counting.chords.CountingChords;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -18,4 +22,10 @@ public class Chord {
     private Integer thirdNote;
     private Integer fourthNote;
     private String createdBy;
+
+
+    @ManyToMany
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private List<String> asdqw;
 }

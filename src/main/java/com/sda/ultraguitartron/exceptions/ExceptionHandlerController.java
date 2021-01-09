@@ -5,15 +5,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @Slf4j
-@ControllerAdvice
+@RestControllerAdvice //@ControllerAdvice + @ResponseBody
 public class ExceptionHandlerController {
 
     @ExceptionHandler(ChordNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    void chordNotFoundExceptionHandler(ChordNotFoundException exception) {
-        log.error(exception.getMessage());
+    public ErrorMessage chordNotFoundExceptionHandler(ChordNotFoundException exception) {
+        log.debug(exception.getMessage());
+        return new ErrorMessage(exception.getMessage());
     }
 
     @ExceptionHandler
@@ -22,7 +24,7 @@ public class ExceptionHandlerController {
         log.error(exception.getMessage());
     }
 
-    @ExceptionHandler
+    @ExceptionHandler(TraineeNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     void traineeNotFoundException(TraineeNotFoundException exception) {
         log.error(exception.getMessage());

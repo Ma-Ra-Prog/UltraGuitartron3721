@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 
 import java.util.Optional;
 
+import javax.validation.constraints.NotNull;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -14,6 +16,8 @@ import java.util.Optional;
 public class ChordDto {
 
     Long id;
+
+    @NotNull(message = "chord name is mandatory")
     String chordName;
     Integer firstNote;
     Integer secondNote;

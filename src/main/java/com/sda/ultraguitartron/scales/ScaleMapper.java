@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 public class ScaleMapper {
 
     ScaleDto mapToScaleDto(Scale scale) {
-        return new ScaleDto().builder()
+        return ScaleDto.builder()
                 .id(scale.getId())
                 .scaleName(scale.getScaleName())
                 .firstNote(scale.getFirstNote())
