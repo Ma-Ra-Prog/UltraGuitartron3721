@@ -12,31 +12,31 @@ public class ExceptionHandlerController {
 
     @ExceptionHandler(ChordNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    void chordNotFoundExceptionHandler(ChordNotFoundException exception){
+    void chordNotFoundExceptionHandler(ChordNotFoundException exception) {
         log.error(exception.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    void scaleNotFoundException(ScaleNotFoundException exception){
+    void scaleNotFoundException(ScaleNotFoundException exception) {
         log.error(exception.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    void traineeNotFoundException(TraineeNotFoundException exception){
+    void traineeNotFoundException(TraineeNotFoundException exception) {
         log.error(exception.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    void invalidNoteInputException(InvalidNoteInputException exception){
+    void invalidNoteInputException(InvalidNoteInputException exception) {
         log.error(exception.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    void invalidNameException(InvalidNameException exception){
+    void invalidNameException(InvalidNameException exception) {
         log.error(exception.getMessage());
     }
 }

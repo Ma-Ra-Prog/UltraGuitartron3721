@@ -11,7 +11,7 @@ public class ChordCreateService {
     private final ChordRepository chordRepository;
     private final ChordInputValidator chordInputValidator;
 
-    Chord createNewChord(ChordDefinition chordDefinition, Trainee trainee){
+    Chord createNewChord(ChordDefinition chordDefinition, Trainee trainee) {
         chordInputValidator.isInputDataCorrect(chordDefinition);
 
         Chord chord = new Chord();

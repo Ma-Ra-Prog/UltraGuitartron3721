@@ -12,7 +12,7 @@ public class ScaleFetchService {
 
     private final ScaleRepository scaleRepository;
 
-    Scale fetchScaleById(Long id){
+    Scale fetchScaleById(Long id) {
         return scaleRepository.findById(id)
                 .orElseThrow(() -> new ScaleNotFoundException("Cannot find scale with ID: " + id));
     }

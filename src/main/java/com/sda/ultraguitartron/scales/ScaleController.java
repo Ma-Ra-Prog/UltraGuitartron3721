@@ -28,7 +28,7 @@ public class ScaleController {
     }
 
     @GetMapping("/scales/{id}")
-    ScaleDto getScaleById(@PathVariable Long id){
+    ScaleDto getScaleById(@PathVariable Long id) {
         Scale scale = scaleFetchService.fetchScaleById(id);
         return scaleMapper.mapToScaleDto(scale);
     }

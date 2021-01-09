@@ -16,7 +16,7 @@ public class TraineeFetchService {
         return traineeRepository.findById(id)
                 .orElseThrow(() -> new TraineeNotFoundException("Can't find trainee with ID: " + id));
     }
-    
+
     public List<Trainee> fetchAllTrainees() {
         return traineeRepository.findAll();
     }

@@ -17,7 +17,8 @@ public class ChordController {
     private final ChordCreateService chordCreateService;
     private final ChordMapper chordMapper;
 
-    @GetMapping("/chords")  //endpoint do dostania wszystkich typów akordów czyli id i nazwa.
+    @GetMapping("/chords")
+        //endpoint do dostania wszystkich typów akordów czyli id i nazwa.
     ResponseEntity<List<ChordDto>> getAllChords() {
         List<ChordDto> chordDtoList = chordFetchService
                 .fetchAllChords()
@@ -27,14 +28,15 @@ public class ChordController {
         return ResponseEntity.status(HttpStatus.OK).body(chordDtoList);
     }
 
-    @GetMapping("/chords/{id}") //endpoint do dostania konkretnego akordu
+    @GetMapping("/chords/{id}")
+        //endpoint do dostania konkretnego akordu
     ChordDto getChordById(@PathVariable Long id) {
         Chord chord = chordFetchService.fetchChordById(id);
         return chordMapper.mapToChordDto(chord);
     }
 
     @PostMapping("/chords")
-    ResponseEntity<ChordDto> createNewChord(@RequestBody ChordDto chordDto, Trainee trainee){ //todo: poprawić działanie z trainee
+    ResponseEntity<ChordDto> createNewChord(@RequestBody ChordDto chordDto, Trainee trainee) { //todo: poprawić działanie z trainee
         ChordDefinition chordDefinition = chordMapper.mapToChordDefinition(chordDto);
         Chord newlyCreatedChord = chordCreateService.createNewChord(chordDefinition, trainee);
         return ResponseEntity

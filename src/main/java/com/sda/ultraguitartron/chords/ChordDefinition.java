@@ -22,12 +22,15 @@ public class ChordDefinition {
     public Optional<Integer> getFirstNote() {
         return Optional.ofNullable(firstNote);
     }
+
     public Optional<Integer> getSecondNote() {
         return Optional.ofNullable(secondNote);
     }
+
     public Optional<Integer> getThirdNote() {
         return Optional.ofNullable(thirdNote);
     }
+
     public Optional<Integer> getFourthNote() {
         return Optional.ofNullable(fourthNote);
     }

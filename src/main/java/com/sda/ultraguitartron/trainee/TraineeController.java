@@ -18,7 +18,7 @@ public class TraineeController {
     private final TraineeMapper traineeMapper;
 
     @GetMapping("/Trainee")
-    ResponseEntity<List<TraineeDto>> getAllTrainees(){
+    ResponseEntity<List<TraineeDto>> getAllTrainees() {
         List<TraineeDto> traineeDtoList = traineeFetchService
                 .fetchAllTrainees()
                 .stream()
