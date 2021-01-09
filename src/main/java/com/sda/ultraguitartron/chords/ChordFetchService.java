@@ -2,11 +2,11 @@ package com.sda.ultraguitartron.chords;
 
 import com.sda.ultraguitartron.exceptions.ChordNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Component
+@Service
 @RequiredArgsConstructor
 public class ChordFetchService {
 

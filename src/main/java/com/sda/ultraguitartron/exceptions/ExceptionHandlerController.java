@@ -17,6 +17,18 @@ public class ExceptionHandlerController {
     }
 
     @ExceptionHandler
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    void scaleNotFoundException(ScaleNotFoundException exception){
+        log.error(exception.getMessage());
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    void traineeNotFoundException(TraineeNotFoundException exception){
+        log.error(exception.getMessage());
+    }
+
+    @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     void invalidNoteInputException(InvalidNoteInputException exception){
         log.error(exception.getMessage());
@@ -25,12 +37,6 @@ public class ExceptionHandlerController {
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     void invalidNameException(InvalidNameException exception){
-        log.error(exception.getMessage());
-    }
-
-    @ExceptionHandler
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    void traineeNotFoundException(TraineeNotFoundException exception){
         log.error(exception.getMessage());
     }
 }

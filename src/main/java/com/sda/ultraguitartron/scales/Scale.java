@@ -13,12 +13,12 @@ public class Scale {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String scaleName;
-    private int firstNote;
-    private int secondNote;
-    private int thirdNote;
-    private int fourthNote;
-    private int fifthNote;
-    private int sixthNote;
-    private int seventhNote;
+    private Integer firstNote;
+    private Integer secondNote;
+    private Integer thirdNote;
+    private Integer fourthNote;
+    private Integer fifthNote;
+    private Integer sixthNote;
+    private Integer seventhNote;
     private String createdBy;
 }
