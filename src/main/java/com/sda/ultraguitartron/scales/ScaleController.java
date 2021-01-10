@@ -3,8 +3,10 @@ package com.sda.ultraguitartron.scales;
 import com.sda.ultraguitartron.trainee.Trainee;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +31,8 @@ public class ScaleController {
 
     @PostMapping("/scales")
     @ResponseStatus(code = HttpStatus.CREATED)
-    public ScaleDto createNewScale(@RequestBody ScaleDto scaleDto, Trainee trainee) {
+    public ScaleDto createNewScale(@Valid @RequestBody ScaleDto scaleDto, Trainee trainee,
+                                   @AuthenticationPrincipal Object user) {
         return scaleCrudService.createNewScale(scaleDto, trainee);
     }
 }

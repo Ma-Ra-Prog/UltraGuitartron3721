@@ -4,9 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.Column;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Optional;
 
@@ -18,21 +20,21 @@ import java.util.Optional;
 public class ScaleDto {
 
     Long id;
-    @NotNull
+    @NotBlank(message = "field mandatory")
     private String scaleName;
-    @NotNull
+    @NotNull(message = "field Mandatory")
     private Integer firstNote;
-    @NotNull
+    @NotNull(message = "field Mandatory")
     private Integer secondNote;
-    @NotNull
+    @NotNull(message = "field Mandatory")
     private Integer thirdNote;
-    @NotNull
+    @NotNull(message = "field Mandatory")
     private Integer fourthNote;
-    @NotNull
+    @NotNull(message = "field Mandatory")
     private Integer fifthNote;
-    @NotNull
+    @NotNull(message = "field Mandatory")
     private Integer sixthNote;
-    @NotNull
+    @NotNull(message = "field Mandatory")
     private Integer seventhNote;
     //@NotNull
     private String createdBy;
