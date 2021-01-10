@@ -14,12 +14,12 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ScaleController {
 
-    private final ScaleFetchService scaleFetchService;
+    private final ScaleCrudService scaleCrudService;
     private final ScaleMapper scaleMapper;
 
     @GetMapping("/scales")
     ResponseEntity<List<ScaleDto>> getAllScales() {
-        List<ScaleDto> scaleDtoList = scaleFetchService
+        List<ScaleDto> scaleDtoList = scaleCrudService
                 .fetchAllScales()
                 .stream()
                 .map(scaleMapper::mapToScaleDto)
@@ -29,7 +29,7 @@ public class ScaleController {
 
     @GetMapping("/scales/{id}")
     ScaleDto getScaleById(@PathVariable Long id) {
-        Scale scale = scaleFetchService.fetchScaleById(id);
+        Scale scale = scaleCrudService.fetchScaleById(id);
         return scaleMapper.mapToScaleDto(scale);
     }
 

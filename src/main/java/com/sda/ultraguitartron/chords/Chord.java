@@ -18,4 +18,6 @@ public class Chord {
     private Integer thirdNote;
     private Integer fourthNote;
     private String createdBy;
+
+
 }

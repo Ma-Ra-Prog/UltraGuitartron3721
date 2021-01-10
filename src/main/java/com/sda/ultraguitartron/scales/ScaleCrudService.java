@@ -8,7 +8,8 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class ScaleFetchService {
+
+public class ScaleCrudService {
 
     private final ScaleRepository scaleRepository;
 
