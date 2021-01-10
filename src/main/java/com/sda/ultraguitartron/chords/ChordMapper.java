@@ -2,18 +2,20 @@ package com.sda.ultraguitartron.chords;
 
 import org.springframework.stereotype.Component;
 
+import javax.validation.Valid;
+
 @Component
 public class ChordMapper {
 
     ChordDto mapToSimpleChordDto(Chord chord) {  //proste wyświetlenie ChordDto do pobrania wszystkich typów akordów
-        return new ChordDto().builder()
+        return ChordDto.builder()
                 .id(chord.getId())
                 .chordName(chord.getChordName())
                 .build();
     }
 
     ChordDto mapToChordDto(Chord chord) {
-        return new ChordDto().builder()
+        return ChordDto.builder()
                 .id(chord.getId())
                 .chordName(chord.getChordName())
                 .firstNote(chord.getFirstNote())
@@ -24,14 +26,22 @@ public class ChordMapper {
     }
 
     ChordDefinition mapToChordDefinition(ChordDto chordDto) {
-        return new ChordDefinition().builder()
+        return ChordDefinition.builder()
                 .chordName(chordDto.getChordName())
-                .firstNote(chordDto.getFirstNote().orElseGet(null))
-                .secondNote(chordDto.getSecondNote().orElseGet(null))
-                .thirdNote(chordDto.getThirdNote().orElseGet(null))
-                .fourthNote(chordDto.getFourthNote().orElseGet(null))
+                .firstNote(chordDto.getFirstNote())
+                .secondNote(chordDto.getSecondNote())
+                .thirdNote(chordDto.getThirdNote())
+                .fourthNote(chordDto.getFourthNote())
                 .build();
+    }
 
-
+    Chord mapToChord(ChordDefinition chordDefinition) {
+        return Chord.builder()
+                .chordName(chordDefinition.getChordName())
+                .firstNote(chordDefinition.getFirstNote())
+                .secondNote(chordDefinition.getSecondNote())
+                .thirdNote(chordDefinition.getThirdNote())
+                .fourthNote(chordDefinition.getFourthNote())
+                .build();
     }
 }

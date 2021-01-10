@@ -8,13 +8,13 @@ import org.springframework.stereotype.Component;
 public class ChordInputValidator {
 
     void isInputDataCorrect(ChordDefinition chordDefinition) {
-        if (!isFirstNoteNotNull(chordDefinition.getFirstNote().get())) {
+        if (!isFirstNoteNotNull(chordDefinition.getFirstNote())) {
             throw new InvalidNoteInputException("First note shouldn't be null.");
-        } else if (!isSecondNoteNotNull(chordDefinition.getSecondNote().get())) {
+        } else if (!isSecondNoteNotNull(chordDefinition.getSecondNote())) {
             throw new InvalidNoteInputException("Second note shouldn't be null.");
-        } else if (!isThirdNoteNotNull(chordDefinition.getThirdNote().get())) {
+        } else if (!isThirdNoteNotNull(chordDefinition.getThirdNote())) {
             throw new InvalidNoteInputException("Third note shouldn't be null.");
-        } else if (!isFourthNoteNotNull(chordDefinition.getFourthNote().get())) {
+        } else if (!isFourthNoteNotNull(chordDefinition.getFourthNote())) {
             throw new InvalidNoteInputException("Fourth note shouldn't be null, if the chord does not have fourth note, please repeat first note position.");
         } else if (!isChordNameNotEmpty(chordDefinition.getChordName())) {
             throw new InvalidNameException("Chord name shouldn't be blank.");
