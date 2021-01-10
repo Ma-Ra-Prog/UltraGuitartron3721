@@ -14,7 +14,7 @@ import org.springframework.validation.annotation.Validated;
 public class ScaleDefinition {
 
 
-    String scaleName;
+    private String scaleName;
     private Integer firstNote;
     private Integer secondNote;
     private Integer thirdNote;

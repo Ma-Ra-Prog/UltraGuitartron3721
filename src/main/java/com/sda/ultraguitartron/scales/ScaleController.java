@@ -31,8 +31,8 @@ public class ScaleController {
 
     @PostMapping("/scales")
     @ResponseStatus(code = HttpStatus.CREATED)
-    public ScaleDto createNewScale(@Valid @RequestBody ScaleDto scaleDto, Trainee trainee,
+    public ScaleDto createNewScale(@Valid @RequestBody ScaleDto scaleDto,
                                    @AuthenticationPrincipal Object user) {
-        return scaleCrudService.createNewScale(scaleDto, trainee);
+        return scaleCrudService.createNewScale(scaleDto, null);
     }
 }
