@@ -1,14 +1,11 @@
 package com.sda.ultraguitartron.scales;
 
-import com.sda.ultraguitartron.counting.scales.CountingScales;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Data

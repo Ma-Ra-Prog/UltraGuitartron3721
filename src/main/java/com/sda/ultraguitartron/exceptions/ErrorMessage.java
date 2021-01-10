@@ -11,5 +11,5 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ErrorMessage {
-  private Map<String, List<String>> errors;
+    private Map<String, List<String>> errors;
 }

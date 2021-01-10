@@ -1,10 +1,9 @@
 package com.sda.ultraguitartron.utils;
 
 import com.sda.ultraguitartron.trainee.Trainee;
-import com.sda.ultraguitartron.trainee.TraineeFetchService;
+import com.sda.ultraguitartron.trainee.TraineeCrudService;
+import com.sda.ultraguitartron.trainee.TraineeMapper;
 import com.sda.ultraguitartron.trainee.TraineeUserAdapter;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,14 +14,16 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class CustomUserService implements UserDetailsService {
 
-    private final TraineeFetchService traineeFetchService;
+    private final TraineeCrudService traineeCrudService;
+    private final TraineeMapper traineeMapper;
 
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        Trainee trainee = traineeFetchService.fetchTraineeByName(s);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Trainee trainee = traineeMapper.mapToTrainee(traineeCrudService.fetchTraineeByName(username));
 
         return new TraineeUserAdapter(trainee);
     }
 }
 
 //powiedziec springowi, aby używał tego servisu jako domyślny
+//sprawdzić czy traineeMapper może mieć metodę publiczną.

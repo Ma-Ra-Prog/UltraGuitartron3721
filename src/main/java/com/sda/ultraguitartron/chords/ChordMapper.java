@@ -2,8 +2,6 @@ package com.sda.ultraguitartron.chords;
 
 import org.springframework.stereotype.Component;
 
-import javax.validation.Valid;
-
 @Component
 public class ChordMapper {
 

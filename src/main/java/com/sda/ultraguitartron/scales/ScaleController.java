@@ -1,6 +1,5 @@
 package com.sda.ultraguitartron.scales;
 
-import com.sda.ultraguitartron.trainee.Trainee;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

@@ -11,11 +11,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
-@Entity
 @Data
+@Entity
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Note {
 
     @Id
@@ -23,5 +23,4 @@ public class Note {
     Long id;
     @NotNull
     String note;
-
 }

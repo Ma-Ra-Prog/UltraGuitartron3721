@@ -19,7 +19,7 @@ public class ScaleMapper {
                 .build();
     }
 
-    ScaleDefinition mapToDefinition(ScaleDto scaleDto){
+    ScaleDefinition mapToDefinition(ScaleDto scaleDto) {
         return ScaleDefinition.builder()
                 .scaleName(scaleDto.getScaleName())
                 .firstNote(scaleDto.getFirstNote())

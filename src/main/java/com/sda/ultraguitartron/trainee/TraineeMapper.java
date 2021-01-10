@@ -12,4 +12,11 @@ public class TraineeMapper {
                 .adminPermission(trainee.isAdminPermission())
                 .build();
     }
+
+    public Trainee mapToTrainee(TraineeDto traineeDto) {
+        return Trainee.builder()
+                .name(traineeDto.getName())
+                .adminPermission(traineeDto.isAdminPermission())
+                .build();
+    }
 }

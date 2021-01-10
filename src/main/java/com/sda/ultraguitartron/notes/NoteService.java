@@ -16,7 +16,7 @@ public class NoteService {
     private final NoteRepository noteRepository;
     private final NoteMapper noteMapper;
 
-    NoteDto fetchNoteById(Long id){
+    NoteDto fetchNoteById(Long id) {
         return noteRepository.findById(id)
                 .map(noteMapper::mapToNoteDto)
                 .orElseThrow(() -> new NoteNotFoundException("Note not found"));

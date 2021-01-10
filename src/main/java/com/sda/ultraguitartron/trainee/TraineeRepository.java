@@ -7,4 +7,6 @@ import java.util.Optional;
 public interface TraineeRepository extends JpaRepository<Trainee, Long> {
 
     Optional<Trainee> findByName(String name);
+
+    Optional<Trainee> deleteByName(String name);
 }

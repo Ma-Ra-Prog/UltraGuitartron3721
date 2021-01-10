@@ -21,7 +21,7 @@ public class TraineeUserAdapter implements UserDetails {
     @Override
     public String getPassword() {
         return "admin1";
-    }
+    } //todo: hardcoded password to correct
 
     @Override
     public String getUsername() {

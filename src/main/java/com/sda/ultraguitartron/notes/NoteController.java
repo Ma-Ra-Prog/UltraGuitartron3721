@@ -23,7 +23,7 @@ public class NoteController {
 
     @GetMapping("/notes/{id}")
     @ResponseStatus(code = HttpStatus.OK)
-    public NoteDto getNoteById(Long id){
+    public NoteDto getNoteById(Long id) {
         return noteService.fetchNoteById(id);
     }
 }
