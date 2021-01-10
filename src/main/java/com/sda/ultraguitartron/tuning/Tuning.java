@@ -1,6 +1,5 @@
 package com.sda.ultraguitartron.tuning;
 
-import com.sda.ultraguitartron.notes.Notes;
 import lombok.Data;
 
 import javax.persistence.Entity;

@@ -1,12 +1,20 @@
 package com.sda.ultraguitartron.chords;
 
-import com.sda.ultraguitartron.counting.chords.CountingChords;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
-@Entity
 @Data
+@Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Chord {
 
     @Id
@@ -20,4 +28,8 @@ public class Chord {
     private String createdBy;
 
 
+//    @ManyToMany      //to hint do relacji many to many
+//    @ToString.Exclude
+//    @EqualsAndHashCode.Exclude
+//    private List<String> asdqw;
 }

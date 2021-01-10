@@ -3,44 +3,41 @@ package com.sda.ultraguitartron.chords;
 import com.sda.ultraguitartron.trainee.Trainee;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
 public class ChordController {
 
-    private final ChordFetchService chordFetchService;
-    private final ChordCreateService chordCreateService;
-    private final ChordMapper chordMapper;
+    private final ChordCrudService chordCrudService;
 
     @GetMapping("/chords")
-        //endpoint do dostania wszystkich typów akordów czyli id i nazwa.
-    ResponseEntity<List<ChordDto>> getAllChords() {
-        List<ChordDto> chordDtoList = chordFetchService
-                .fetchAllChords()
-                .stream()
-                .map(chordMapper::mapToSimpleChordDto)
-                .collect(Collectors.toList());
-        return ResponseEntity.status(HttpStatus.OK).body(chordDtoList);
+    @ResponseStatus(HttpStatus.OK) //Endpoint do dostania wszystkich chordów
+    public List<ChordDto> getAllChords() {
+        return chordCrudService.fetchAllChords();
     }
 
+    //web dto
+    //serwis, dto, encje
+    //db, encje
+
     @GetMapping("/chords/{id}")
-        //endpoint do dostania konkretnego akordu
-    ChordDto getChordById(@PathVariable Long id) {
-        Chord chord = chordFetchService.fetchChordById(id);
-        return chordMapper.mapToChordDto(chord);
+    @ResponseStatus(HttpStatus.OK) //endpoint do dostania konkretnego akordu
+    public ChordDto getChordById(@PathVariable Long id) {
+        return chordCrudService.fetchChordById(id);
     }
 
     @PostMapping("/chords")
-    ResponseEntity<ChordDto> createNewChord(@RequestBody ChordDto chordDto, Trainee trainee) { //todo: poprawić działanie z trainee
-        ChordDefinition chordDefinition = chordMapper.mapToChordDefinition(chordDto);
-        Chord newlyCreatedChord = chordCreateService.createNewChord(chordDefinition, trainee);
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(chordMapper.mapToChordDto(newlyCreatedChord));
+    public ChordDto createNewChord(@Valid @RequestBody ChordDto chordDto, Trainee trainee,
+                                                   @AuthenticationPrincipal Authentication authentication) { //todo: poprawić działanie z trainee
+        Object principal = authentication.getPrincipal(); // User -> (User)
+        SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return chordCrudService.createNewChord(chordDto, trainee);
     }
 }
