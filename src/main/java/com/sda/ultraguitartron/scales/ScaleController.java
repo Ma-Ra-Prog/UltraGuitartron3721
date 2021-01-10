@@ -1,37 +1,35 @@
 package com.sda.ultraguitartron.scales;
 
+import com.sda.ultraguitartron.trainee.Trainee;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
 public class ScaleController {
 
     private final ScaleCrudService scaleCrudService;
-    private final ScaleMapper scaleMapper;
 
     @GetMapping("/scales")
-    ResponseEntity<List<ScaleDto>> getAllScales() {
-        List<ScaleDto> scaleDtoList = scaleCrudService
-                .fetchAllScales()
-                .stream()
-                .map(scaleMapper::mapToScaleDto)
-                .collect(Collectors.toList());
-        return ResponseEntity.status(HttpStatus.OK).body(scaleDtoList);
+    @ResponseStatus(code = HttpStatus.OK)
+    List<ScaleDto> getAllScales() {
+        return new ArrayList<>(scaleCrudService
+                .fetchAllScales());
     }
 
     @GetMapping("/scales/{id}")
+    @ResponseStatus(code = HttpStatus.OK)
     ScaleDto getScaleById(@PathVariable Long id) {
-        Scale scale = scaleCrudService.fetchScaleById(id);
-        return scaleMapper.mapToScaleDto(scale);
+        return scaleCrudService.fetchScaleById(id);
     }
 
-    //todo: dodać PostMapping
+    @PostMapping("/scales")
+    @ResponseStatus(code = HttpStatus.CREATED)
+    ScaleDto createNewScale(@RequestBody ScaleDto scaleDto, Trainee trainee) {
+        return scaleCrudService.createNewScale(scaleDto, trainee);
+    }
 }

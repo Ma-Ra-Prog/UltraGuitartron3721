@@ -18,4 +18,30 @@ public class ScaleMapper {
                 .seventhNote(scale.getSeventhNote())
                 .build();
     }
+
+    ScaleDefinition mapToDefinition(ScaleDto scaleDto){
+        return ScaleDefinition.builder()
+                .scaleName(scaleDto.getScaleName())
+                .firstNote(scaleDto.getFirstNote())
+                .secondNote(scaleDto.getSecondNote())
+                .thirdNote(scaleDto.getThirdNote())
+                .fourthNote(scaleDto.getFourthNote())
+                .fifthNote(scaleDto.getFifthNote())
+                .sixthNote(scaleDto.getSixthNote())
+                .seventhNote(scaleDto.getSeventhNote())
+                .build();
+    }
+
+    Scale mapToScale(ScaleDefinition scaleDefinition) {
+        return Scale.builder()
+                .scaleName(scaleDefinition.getScaleName())
+                .firstNote(scaleDefinition.getFirstNote())
+                .secondNote(scaleDefinition.getSecondNote())
+                .thirdNote(scaleDefinition.getThirdNote())
+                .fourthNote(scaleDefinition.getFourthNote())
+                .fifthNote(scaleDefinition.getFifthNote())
+                .sixthNote(scaleDefinition.getSixthNote())
+                .seventhNote(scaleDefinition.getSeventhNote())
+                .build();
+    }
 }
