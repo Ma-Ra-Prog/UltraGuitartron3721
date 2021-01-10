@@ -4,39 +4,28 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 
-import java.util.Optional;
-
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Data
 @Builder
-@AllArgsConstructor
+@Validated
 @NoArgsConstructor
+@AllArgsConstructor
 public class ChordDto {
 
     Long id;
 
-    @NotNull(message = "chord name is mandatory")
+    @NotBlank(message = "Chord name is mandatory.")
     String chordName;
+    @NotNull(message = "First note is mandatory.")
     Integer firstNote;
+    @NotNull(message = "Second note is mandatory.")
     Integer secondNote;
+    @NotNull(message = "Third note is mandatory.")
     Integer thirdNote;
+    @NotNull(message = "Fourth note is mandatory.")
     Integer fourthNote;
-
-    public Optional<Integer> getFirstNote() {
-        return Optional.ofNullable(firstNote);
-    }
-
-    public Optional<Integer> getSecondNote() {
-        return Optional.ofNullable(secondNote);
-    }
-
-    public Optional<Integer> getThirdNote() {
-        return Optional.ofNullable(thirdNote);
-    }
-
-    public Optional<Integer> getFourthNote() {
-        return Optional.ofNullable(fourthNote);
-    }
 }
