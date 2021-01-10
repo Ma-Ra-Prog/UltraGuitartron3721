@@ -29,7 +29,7 @@ public class ScaleController {
 
     @PostMapping("/scales")
     @ResponseStatus(code = HttpStatus.CREATED)
-    ScaleDto createNewScale(@RequestBody ScaleDto scaleDto, Trainee trainee) {
+    public ScaleDto createNewScale(@RequestBody ScaleDto scaleDto, Trainee trainee) {
         return scaleCrudService.createNewScale(scaleDto, trainee);
     }
 }

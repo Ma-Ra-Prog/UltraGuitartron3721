@@ -34,6 +34,7 @@ public class ScaleCrudService {
         ScaleDefinition scaleDefinition = scaleMapper.mapToDefinition(scaleDto);
         Scale scale = scaleMapper.mapToScale(scaleDefinition);
         scale.setCreatedBy(trainee.getName());
-        return scaleMapper.mapToScaleDto(scale);
+        final Scale savedScale = scaleRepository.save(scale);
+        return scaleMapper.mapToScaleDto(savedScale);
     }
 }

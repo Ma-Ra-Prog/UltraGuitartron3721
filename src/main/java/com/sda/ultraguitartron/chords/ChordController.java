@@ -33,10 +33,10 @@ public class ChordController {
         return chordCrudService.fetchChordById(id);
     }
 
+    // userDetailsService
     @PostMapping("/chords")
-    public ChordDto createNewChord(@Valid @RequestBody ChordDto chordDto, Trainee trainee,
-                                                   @AuthenticationPrincipal Authentication authentication) { //todo: poprawić działanie z trainee
-        Object principal = authentication.getPrincipal(); // User -> (User)
+    public ChordDto createNewChord(@Valid @RequestBody ChordDto chordDto, Trainee trainee) { //todo: poprawić działanie z trainee
+        //Object principal = authentication.getPrincipal(); // User -> (User)
         SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return chordCrudService.createNewChord(chordDto, trainee);
     }

@@ -34,7 +34,7 @@ public class ScaleDto {
     private Integer sixthNote;
     @NotNull
     private Integer seventhNote;
-    @NotNull
+    //@NotNull
     private String createdBy;
 
 }
