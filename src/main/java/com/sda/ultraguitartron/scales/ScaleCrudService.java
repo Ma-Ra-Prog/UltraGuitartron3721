@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,5 +37,11 @@ public class ScaleCrudService {
         scale.setCreatedBy(trainee.getName());
         final Scale savedScale = scaleRepository.save(scale);
         return scaleMapper.mapToScaleDto(savedScale);
+    }
+
+    public ScaleDto fetchScaleByName(String name) {
+        return scaleRepository.findByName(name)
+                .map(scaleMapper::mapToScaleDto)
+                .orElseThrow(NoSuchElementException::new);
     }
 }

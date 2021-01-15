@@ -8,10 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Slf4j
 @RestControllerAdvice //@ControllerAdvice + @ResponseBody
@@ -26,7 +23,7 @@ public class ExceptionHandlerController {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorMessage handle(MethodArgumentNotValidException exception) {
+    public ErrorMessage handleMethodArgumentNotValid(MethodArgumentNotValidException exception) {
         Map<String, List<String>> fieldNamesToErrorMessages = new HashMap<>();
         for (FieldError fieldError :
                 exception.getFieldErrors()) {
@@ -41,6 +38,24 @@ public class ExceptionHandlerController {
         }
         return new ErrorMessage(fieldNamesToErrorMessages);
     }
+//
+//    @ExceptionHandler(NoSuchElementException.class)
+//    @ResponseStatus(HttpStatus.BAD_REQUEST)
+//    public ErrorMessage handleNoSuchElementException(NoSuchElementException exception) {
+//        Map<String, List<String>> fieldNamesToErrorMessages = new HashMap<>();
+//        for (FieldError fieldError :
+//                exception.getFieldErrors()) {
+//            String fieldName = fieldError.getField();
+//            if (fieldNamesToErrorMessages.containsKey(fieldName)) {
+//                fieldNamesToErrorMessages.get(fieldName).add(fieldError.getDefaultMessage());
+//            } else {
+//                List<String> errorList = new ArrayList<>();
+//                errorList.add(fieldError.getDefaultMessage());
+//                fieldNamesToErrorMessages.put(fieldName, errorList);
+//            }
+//        }
+//        return new ErrorMessage(fieldNamesToErrorMessages);
+//    }
 
 //    @ExceptionHandler
 //    @ResponseStatus(HttpStatus.NOT_FOUND)

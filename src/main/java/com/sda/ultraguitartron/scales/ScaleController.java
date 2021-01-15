@@ -34,4 +34,10 @@ public class ScaleController {
                                    @AuthenticationPrincipal Object user) {
         return scaleCrudService.createNewScale(scaleDto, null);
     }
+
+    @GetMapping("/scales/{name}")
+    @ResponseStatus(code = HttpStatus.OK)
+    public ScaleDto getScaleByName(@PathVariable String name){
+        return scaleCrudService.fetchScaleByName(name);
+    }
 }

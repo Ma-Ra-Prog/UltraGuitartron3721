@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,5 +28,11 @@ public class NoteService {
                 .stream()
                 .map(noteMapper::mapToNoteDto)
                 .collect(Collectors.toList());
+    }
+
+    public NoteDto fetchNoteByName(String name) {
+        return noteRepository.fetchByName(name)
+                .map(noteMapper::mapToNoteDto)
+                .orElseThrow(NoSuchElementException::new);
     }
 }

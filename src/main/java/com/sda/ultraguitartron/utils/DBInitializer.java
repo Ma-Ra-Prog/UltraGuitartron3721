@@ -15,6 +15,6 @@ public class DBInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        traineeRepository.save(new Trainee(null, "Nabuhodonozor", false));
+        traineeRepository.save(new Trainee(null, "Nabuchodonozor", false));
     }
 }
