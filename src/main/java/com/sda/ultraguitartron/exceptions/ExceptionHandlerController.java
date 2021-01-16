@@ -69,11 +69,11 @@ public class ExceptionHandlerController {
 //        log.error(exception.getMessage());
 //    }
 //
-//    @ExceptionHandler
-//    @ResponseStatus(HttpStatus.BAD_REQUEST)
-//    void invalidNoteInputException(InvalidNoteInputException exception) {
-//        log.error(exception.getMessage());
-//    }
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    void invalidNoteInputException(InvalidNoteInputException exception) {
+        log.debug(exception.getMessage());
+    }
 //
 //    @ExceptionHandler
 //    @ResponseStatus(HttpStatus.BAD_REQUEST)

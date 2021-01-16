@@ -54,23 +54,23 @@ public class ChordCrudService { // ChordCrudService
         Long rootNoteId = noteService.fetchNoteByName(rootNote).getId()-1;
         List<String> notesList = new ArrayList<>();
         notesList.add(noteService
-                .fetchNoteById(ifGreaterThanEightThenMinusEight(Long.valueOf(chordDto.firstNote)+rootNoteId))
+                .fetchNoteById(ifGreaterThanTwelveThenMinusTwelve(Long.valueOf(chordDto.firstNote)+rootNoteId))
                 .getNote());
         notesList.add(noteService
-                .fetchNoteById(ifGreaterThanEightThenMinusEight(Long.valueOf(chordDto.secondNote)+rootNoteId))
+                .fetchNoteById(ifGreaterThanTwelveThenMinusTwelve(Long.valueOf(chordDto.secondNote)+rootNoteId))
                 .getNote());
         notesList.add(noteService
-                .fetchNoteById(ifGreaterThanEightThenMinusEight(Long.valueOf(chordDto.thirdNote)+rootNoteId))
+                .fetchNoteById(ifGreaterThanTwelveThenMinusTwelve(Long.valueOf(chordDto.thirdNote)+rootNoteId))
                 .getNote());
         notesList.add(noteService
-                .fetchNoteById(ifGreaterThanEightThenMinusEight(Long.valueOf(chordDto.fourthNote)+rootNoteId))
+                .fetchNoteById(ifGreaterThanTwelveThenMinusTwelve(Long.valueOf(chordDto.fourthNote)+rootNoteId))
                 .getNote());
         return new SpecificChord(chordName, notesList);
     }
 
-    private Long ifGreaterThanEightThenMinusEight(Long input){
-        if (input>8){
-            return input-8;
+    private Long ifGreaterThanTwelveThenMinusTwelve(Long input){
+        if (input>12){
+            return input-12;
         } else {
             return input;
         }
