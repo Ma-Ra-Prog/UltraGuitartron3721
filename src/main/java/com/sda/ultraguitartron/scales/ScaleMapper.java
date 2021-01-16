@@ -19,7 +19,7 @@ public class ScaleMapper {
                 .build();
     }
 
-    ScaleDefinition mapToDefinition(ScaleDto scaleDto) {
+    public ScaleDefinition mapToDefinition(ScaleDto scaleDto) {
         return ScaleDefinition.builder()
                 .scaleName(scaleDto.getScaleName())
                 .firstNote(scaleDto.getFirstNote())
@@ -32,7 +32,7 @@ public class ScaleMapper {
                 .build();
     }
 
-    Scale mapToScale(ScaleDefinition scaleDefinition) {
+    public Scale mapToScale(ScaleDefinition scaleDefinition) {
         return Scale.builder()
                 .scaleName(scaleDefinition.getScaleName())
                 .firstNote(scaleDefinition.getFirstNote())
