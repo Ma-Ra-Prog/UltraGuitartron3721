@@ -21,6 +21,10 @@ public class ScaleController {
         return new ArrayList<>(scaleCrudService
                 .fetchAllScales());
     }
+    /*
+    [
+    ]
+     */
 
     @GetMapping("/scales/{id}")
     @ResponseStatus(code = HttpStatus.OK)

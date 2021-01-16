@@ -1,6 +1,8 @@
 package com.sda.ultraguitartron.utils;
 
 
+import java.util.List;
+
 import com.sda.ultraguitartron.scales.Scale;
 import com.sda.ultraguitartron.scales.ScaleRepository;
 import com.sda.ultraguitartron.trainee.Trainee;
@@ -13,6 +15,9 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class DBInitializer implements CommandLineRunner {
 
+    private static final String SCALE_JONSKA_NAME = "Jońska";
+    private static final List<Integer> JONSKA_NOTES_VALUES = List.of(1, 3, 5, 6, 8, 10, 12);
+
     private final TraineeRepository traineeRepository;
     private final ScaleRepository scaleRepository;
 
@@ -20,6 +25,7 @@ public class DBInitializer implements CommandLineRunner {
     public void run(String... args) throws Exception {
         Trainee defaultAdmin = new Trainee(null, "Default", true);
         traineeRepository.save(defaultAdmin);
+        saveScaleIfNotExists(SCALE_JONSKA_NAME, JONSKA_NOTES_VALUES);
         if (scaleRepository.findByName("Jońska").isEmpty()) {
             Scale ionian = new Scale(null, "Jońska", 1, 3, 5, 6, 8, 10, 12, defaultAdmin.getName());
             scaleRepository.save(ionian);

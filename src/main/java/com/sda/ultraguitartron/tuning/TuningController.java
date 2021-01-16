@@ -16,8 +16,8 @@ public class TuningController {
 
     @GetMapping("/tunings")
     @ResponseStatus(HttpStatus.OK)
-    public List<TuningDto> getAllTunings() {
-        return tuningCrudService.fetchAllTunings();
+    public Tunings getAllTunings() {
+        return new Tunings(tuningCrudService.fetchAllTunings());
     }
 
     @GetMapping("/tunings/{id}")
