@@ -1,11 +1,13 @@
 package com.sda.ultraguitartron.scales;
 
 import com.sda.ultraguitartron.exceptions.ScaleNotFoundException;
+import com.sda.ultraguitartron.notes.NoteService;
 import com.sda.ultraguitartron.trainee.Trainee;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -17,6 +19,7 @@ public class ScaleCrudService {
 
     private final ScaleRepository scaleRepository;
     private final ScaleMapper scaleMapper;
+    private final NoteService noteService;
 
     ScaleDto fetchScaleById(Long id) {
         return scaleRepository.findById(id)
@@ -43,5 +46,49 @@ public class ScaleCrudService {
         return scaleRepository.findByName(name)
                 .map(scaleMapper::mapToScaleDto)
                 .orElseThrow(NoSuchElementException::new);
+    }
+
+    public SpecificScale fetchScaleByNameAndRootNote(String scaleName, String rootNote) {
+        ScaleDto scaleDto = fetchScaleByName(scaleName);
+        Long rootNoteId = noteService.fetchNoteByName(rootNote).getId() - 1;
+        List<String> noteList = new ArrayList<>();
+
+        noteList.add(noteService
+                .fetchNoteById(ifGreaterThanTwelveThenMinusTwelve(Long.valueOf(scaleDto.getFirstNote()) + rootNoteId))
+                .getNote());
+
+        noteList.add(noteService
+                .fetchNoteById(ifGreaterThanTwelveThenMinusTwelve(Long.valueOf(scaleDto.getSecondNote()) + rootNoteId))
+                .getNote());
+
+        noteList.add(noteService
+                .fetchNoteById(ifGreaterThanTwelveThenMinusTwelve(Long.valueOf(scaleDto.getThirdNote()) + rootNoteId))
+                .getNote());
+
+        noteList.add(noteService
+                .fetchNoteById(ifGreaterThanTwelveThenMinusTwelve(Long.valueOf(scaleDto.getFourthNote()) + rootNoteId))
+                .getNote());
+
+        noteList.add(noteService
+                .fetchNoteById(ifGreaterThanTwelveThenMinusTwelve(Long.valueOf(scaleDto.getFifthNote()) + rootNoteId))
+                .getNote());
+
+        noteList.add(noteService
+                .fetchNoteById(ifGreaterThanTwelveThenMinusTwelve(Long.valueOf(scaleDto.getSixthNote()) + rootNoteId))
+                .getNote());
+
+        noteList.add(noteService
+                .fetchNoteById(ifGreaterThanTwelveThenMinusTwelve(Long.valueOf(scaleDto.getSeventhNote()) + rootNoteId))
+                .getNote());
+
+        return new SpecificScale(scaleName, noteList);
+    }
+
+    private Long ifGreaterThanTwelveThenMinusTwelve(Long input) {
+        if (input > 12) {
+            return input - 12;
+        } else {
+            return input;
+        }
     }
 }

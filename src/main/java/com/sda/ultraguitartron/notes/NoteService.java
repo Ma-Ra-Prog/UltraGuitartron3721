@@ -17,7 +17,7 @@ public class NoteService {
     private final NoteRepository noteRepository;
     private final NoteMapper noteMapper;
 
-    NoteDto fetchNoteById(Long id) {
+    public NoteDto fetchNoteById(Long id) {
         return noteRepository.findById(id)
                 .map(noteMapper::mapToNoteDto)
                 .orElseThrow(() -> new NoteNotFoundException("Note not found"));
@@ -31,7 +31,7 @@ public class NoteService {
     }
 
     public NoteDto fetchNoteByName(String name) {
-        return noteRepository.fetchByName(name)
+        return noteRepository.findByName(name)
                 .map(noteMapper::mapToNoteDto)
                 .orElseThrow(NoSuchElementException::new);
     }
