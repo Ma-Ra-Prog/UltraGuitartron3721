@@ -1,11 +1,8 @@
 package com.sda.ultraguitartron.chords;
 
-import com.sda.ultraguitartron.trainee.Trainee;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -35,10 +32,14 @@ public class ChordController {
 
     @PostMapping("/chords")
     @ResponseStatus(HttpStatus.CREATED)
-    public ChordDto createNewChord(@Valid @RequestBody ChordDto chordDto, Trainee trainee,
-                                   @AuthenticationPrincipal Authentication authentication) { //todo: poprawić działanie z trainee
-        Object principal = authentication.getPrincipal(); // User -> (User)
-        SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return chordCrudService.createNewChord(chordDto, trainee);
+    public ChordDto createNewChord(@Valid @RequestBody ChordDto chordDto,
+                                   @AuthenticationPrincipal Object user) {
+        return chordCrudService.createNewChord(chordDto, null);
+    }
+
+    @GetMapping("/chords")
+    @ResponseStatus(HttpStatus.OK)
+    public SpecificChord getChordNotesByChordNameAndRootNote(@RequestParam String chordName, @RequestParam(required = false, defaultValue = "C") String rootNote){
+        return chordCrudService.fetchChordByNameAndRootNote(chordName, rootNote);
     }
 }

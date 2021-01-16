@@ -30,7 +30,7 @@ public class NoteController {
 
     @GetMapping("/notes/{name}")
     @ResponseStatus(code = HttpStatus.OK)
-    public NoteDto getnoteByName(@PathVariable String name){
+    public NoteDto getNoteByName(@PathVariable String name){
         return noteService.fetchNoteByName(name);
     }
 }

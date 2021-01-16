@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class NoteMapper {
 
-    NoteDto mapToNoteDto(Note note) {
+    public NoteDto mapToNoteDto(Note note) {
         return NoteDto.builder()
                 .note(note.getNote())
                 .build();
