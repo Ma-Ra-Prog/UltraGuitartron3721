@@ -37,9 +37,10 @@ public class ChordController {
         return chordCrudService.createNewChord(chordDto, null);
     }
 
-    @GetMapping("/chords")
+    @GetMapping(value = "/chords/search", params = {"chordName", "rootNote"})
     @ResponseStatus(HttpStatus.OK)
-    public SpecificChord getChordNotesByChordNameAndRootNote(@RequestParam String chordName, @RequestParam(required = false, defaultValue = "C") String rootNote){
+    public SpecificChord getChordNotesByChordNameAndRootNote(@RequestParam String chordName,
+                                                             @RequestParam(required = false, defaultValue = "C") String rootNote){
         return chordCrudService.fetchChordByNameAndRootNote(chordName, rootNote);
     }
 }

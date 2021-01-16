@@ -4,49 +4,60 @@ import com.sda.ultraguitartron.exceptions.InvalidNoteInputException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 @RequiredArgsConstructor
 public class NotesInputValidator {
 
     private final NoteService noteService;
+    private final List<NoteInputModifier> noteInputModifiers;
 
     public String refactorToUppercase(String input){
         String noteRefactorHelper;
         switch (input.length()){
             case 1:
-                if (input.matches("[a-g]")) {
-                    input = input.toUpperCase();
-                } else if (!input.matches("[A-G]")) {
-                    throw new InvalidNoteInputException("Invalid note input: " + input + " try format X#/Yb or X# or Yb");
-                }
+                input = modifyInput(input, input.length());
+                validateCaseLengthEqualsOne(input);
                 break;
             case 2:
-                if (input.matches("([a-g]{1}#)||([a-g]{1}b)")) {
-                    noteRefactorHelper = input.substring(0, 1).toUpperCase();
-                    input = noteRefactorHelper + input.charAt(1);
-                } else if (!input.matches("([a-g]{1}#)||([a-g]{1}b)")&&!input.matches("([A-G]{1}#)||([A-G]{1}b)")){
-                    throw new InvalidNoteInputException("Invalid note input: " + input + " try format X#/Yb or X# or Yb");
-                }
+                input = modifyInput(input, input.length());
+                validateCaseLengthEqualsTwo(input);
                 break;
             case 5:
-                if (input.charAt(0) >= 'a' && input.charAt(0) <= 'g') {
-                    noteRefactorHelper = input.substring(0, 1).toUpperCase();
-                    input = noteRefactorHelper + input.substring(1, 5);
-                } else if (!(input.charAt(0) >= 'A' && input.charAt(0) <= 'G')){
-                    throw new InvalidNoteInputException("Invalid note input: " + input + " available notes are: C, C#/Db, D, D#/Eb, E, F, F#/Gb, G, G#/Ab, A, A#/Bb, B");
-                }
-
-                if (input.charAt(3) >= 'a' && input.charAt(3) <= 'g') {
-                    noteRefactorHelper = input.substring(0, 3);
-                    input = noteRefactorHelper + input.substring(3, 4).toUpperCase() + input.charAt(4);
-                } else if (!(input.charAt(0) >= 'A' && input.charAt(0) <= 'G')) {
-                    throw new InvalidNoteInputException("Invalid note input: " + input + " available notes are: C, C#/Db, D, D#/Eb, E, F, F#/Gb, G, G#/Ab, A, A#/Bb, B");
-                }
+                input = modifyInput(input, input.length());
+                validateCaseLengthEqualsFive(input);
                 break;
             default:
                 throw new InvalidNoteInputException("Invalid note input: " + input + " try format X#/Yb or X# or Yb");
         }
         return input;
+    }
+
+    private void validateCaseLengthEqualsOne(String input){
+        if (!input.matches("[A-G]")) {
+            throw new InvalidNoteInputException("Invalid note input: " + input + " try format X#/Yb or X# or Yb");
+        }
+    }
+
+    private void validateCaseLengthEqualsTwo(String input){
+        if (!input.matches("([a-g]{1}#)||([a-g]{1}b)||([A-G]{1}#||([A-G]{1}b))")) {
+            throw new InvalidNoteInputException("Invalid note input: " + input + " try format X#/Yb or X# or Yb");
+        }
+    }
+
+    private void validateCaseLengthEqualsFive(String input){
+        if (!input.matches("([A-G]{1}#/[A-G]{1}b)")){
+            throw new InvalidNoteInputException("Invalid note input: " + input + " try format X#/Yb or X# or Yb");
+        }
+    }
+
+    private String modifyInput(String input, int index) {
+        final NoteInputModifier noteInputModifier = noteInputModifiers.stream()
+                .filter(x -> x.getId() == index)
+                .findFirst()
+                .get();
+        return noteInputModifier.modify(input);
     }
 
     public String toValidNoteRefactor(String input){

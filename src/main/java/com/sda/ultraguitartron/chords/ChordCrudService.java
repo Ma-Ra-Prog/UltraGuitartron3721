@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @Transactional
@@ -52,19 +53,9 @@ public class ChordCrudService { // ChordCrudService
     public SpecificChord fetchChordByNameAndRootNote(String chordName, String rootNote) {
         ChordDto chordDto = fetchChordByName(chordName);
         Long rootNoteId = noteService.fetchNoteByName(rootNote).getId()-1;
-        List<String> notesList = new ArrayList<>();
-        notesList.add(noteService
-                .fetchNoteById(ifGreaterThanTwelveThenMinusTwelve(Long.valueOf(chordDto.firstNote)+rootNoteId))
-                .getNote());
-        notesList.add(noteService
-                .fetchNoteById(ifGreaterThanTwelveThenMinusTwelve(Long.valueOf(chordDto.secondNote)+rootNoteId))
-                .getNote());
-        notesList.add(noteService
-                .fetchNoteById(ifGreaterThanTwelveThenMinusTwelve(Long.valueOf(chordDto.thirdNote)+rootNoteId))
-                .getNote());
-        notesList.add(noteService
-                .fetchNoteById(ifGreaterThanTwelveThenMinusTwelve(Long.valueOf(chordDto.fourthNote)+rootNoteId))
-                .getNote());
+        final List<String> notesList = Stream.of(chordDto.getFirstNote(), chordDto.getSecondNote(), chordDto.getThirdNote(), chordDto.getFourthNote())
+                .map(note -> noteService.fetchNoteById(ifGreaterThanTwelveThenMinusTwelve(Long.valueOf(note) + rootNoteId)).getNote())
+                .collect(Collectors.toUnmodifiableList());
         return new SpecificChord(chordName, notesList);
     }
 
