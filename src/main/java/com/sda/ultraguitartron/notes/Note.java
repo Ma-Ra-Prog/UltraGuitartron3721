@@ -1,5 +1,7 @@
 package com.sda.ultraguitartron.notes;
 
+import java.util.UUID;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,8 +21,11 @@ import javax.validation.constraints.NotNull;
 public class Note {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
+    private UUID identifier;
+
     Long id;
+
     @NotNull
     String note;
 }

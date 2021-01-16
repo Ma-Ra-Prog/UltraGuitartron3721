@@ -40,7 +40,7 @@ public class ScaleCrudService {
     }
 
     public ScaleDto fetchScaleByName(String name) {
-        return scaleRepository.findByName(name)
+        return scaleRepository.findByScaleName(name)
                 .map(scaleMapper::mapToScaleDto)
                 .orElseThrow(NoSuchElementException::new);
     }

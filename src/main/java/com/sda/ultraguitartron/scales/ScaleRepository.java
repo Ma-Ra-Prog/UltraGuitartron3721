@@ -6,5 +6,5 @@ import java.util.Optional;
 
 public interface ScaleRepository extends JpaRepository<Scale, Long> {
 
-    Optional<Scale> findByName(String name);
+    Optional<Scale> findByScaleName(String name);
 }

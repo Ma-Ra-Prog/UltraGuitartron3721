@@ -31,7 +31,7 @@ public class NoteService {
     }
 
     public NoteDto fetchNoteByName(String name) {
-        return noteRepository.findByName(name)
+        return noteRepository.findByNote(name)
                 .map(noteMapper::mapToNoteDto)
                 .orElseThrow(NoSuchElementException::new);
     }
