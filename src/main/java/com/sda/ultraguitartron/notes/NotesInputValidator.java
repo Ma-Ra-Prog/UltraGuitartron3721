@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -12,10 +13,16 @@ public class NotesInputValidator {
 
     private final NoteService noteService;
     private final List<NoteInputModifier> noteInputModifiers;
+    private final List<Integer> LIST_OF_COMPLICATED_NOTE_ENTRIES_IDS = List.of(2, 4, 7, 9, 11);
 
-    public String refactorToUppercase(String input){
-        String noteRefactorHelper;
-        switch (input.length()){
+    public String validate(String input){
+        String validatedInput = toValidNoteRefactor(refactorToUppercaseAndValidateLength(input));
+        finalValidator(validatedInput);
+        return validatedInput;
+    }
+
+    public String refactorToUppercaseAndValidateLength(String input) {
+        switch (input.length()) {
             case 1:
                 input = modifyInput(input, input.length());
                 validateCaseLengthEqualsOne(input);
@@ -34,20 +41,20 @@ public class NotesInputValidator {
         return input;
     }
 
-    private void validateCaseLengthEqualsOne(String input){
+    private void validateCaseLengthEqualsOne(String input) {
         if (!input.matches("[A-G]")) {
             throw new InvalidNoteInputException("Invalid note input: " + input + " try format X#/Yb or X# or Yb");
         }
     }
 
-    private void validateCaseLengthEqualsTwo(String input){
+    private void validateCaseLengthEqualsTwo(String input) {
         if (!input.matches("([a-g]{1}#)||([a-g]{1}b)||([A-G]{1}#||([A-G]{1}b))")) {
             throw new InvalidNoteInputException("Invalid note input: " + input + " try format X#/Yb or X# or Yb");
         }
     }
 
-    private void validateCaseLengthEqualsFive(String input){
-        if (!input.matches("([A-G]{1}#/[A-G]{1}b)")){
+    private void validateCaseLengthEqualsFive(String input) {
+        if (!input.matches("([A-G]{1}#/[A-G]{1}b)")) {
             throw new InvalidNoteInputException("Invalid note input: " + input + " try format X#/Yb or X# or Yb");
         }
     }
@@ -60,30 +67,34 @@ public class NotesInputValidator {
         return noteInputModifier.modify(input);
     }
 
-    public String toValidNoteRefactor(String input){
-        int id = 2; //2 because it's first record in db with more complicated entry that would need input validation
-        boolean isOver12 = false;
-        while(input.length() > 1 && !input.equals(noteService.fetchNoteById((long) id).getNote()) && !isOver12){
-            if (!input.equals(noteService.fetchNoteById((long) id).getNote().substring(0, 2)) && !input.equals(noteService.fetchNoteById((long) id).getNote().substring(3, 5))) {
-                switch(id) {
-                    case 2:
-                        id = 4;
-                        break;
-                    case 4:
-                        id = 7;
-                        break;
-                    case 7:
-                        id = 9;
-                        break;
-                    case 9:
-                        id = 11;
-                    default:
-                        isOver12 = true;
-                        break;
-                }
-            } else {
-                input = noteService.fetchNoteById((long) id).getNote();
+    public String toValidNoteRefactor(String input) {
+        for (int id : LIST_OF_COMPLICATED_NOTE_ENTRIES_IDS) {
+            if (input.equals(noteService.fetchNoteById((long) id).getNote().substring(0, 2)) || input.equals(noteService.fetchNoteById((long) id).getNote().substring(3, 5))) {
+                return input = noteService.fetchNoteById((long) id).getNote();
             }
-        }return input;
+        }
+        return input;
     }
+
+    public void finalValidator(String input) {
+        if (!input.equals(noteService.fetchNoteByName(input).getNote())) {
+            throw new InvalidNoteInputException("Invalid note input: " + input + " try format X#/Yb or X# or Yb");
+        }
+    }
+
+//    public String alternativeToValidNoteRefactor(String input) {
+//        String inputForStream = input;
+//        Integer fullNoteId = LIST_OF_COMPLICATED_NOTE_ENTRIES_IDS.stream()
+//                .filter(id -> inputForStream
+//                        .equals(noteService.fetchNoteById((long) id)
+//                                .getNote()
+//                                .substring(0, 2))
+//                        || inputForStream
+//                        .equals(noteService.fetchNoteById((long) id)
+//                                .getNote()
+//                                .substring(3, 5)))
+//                .collect(Collectors.toList())
+//                .get(0);
+//        return input = noteService.fetchNoteById((long) fullNoteId).getNote();
+//    }
 }
