@@ -15,8 +15,17 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class DBInitializer implements CommandLineRunner {
 
-    private static final String SCALE_JONSKA_NAME = "Jońska";
-    private static final List<Integer> JONSKA_NOTES_VALUES = List.of(1, 3, 5, 6, 8, 10, 12);
+    private static final String SCALE_IONIAN_NAME = "Jońska";
+    private static final List<Integer> IONIAN_NOTES_VALUES = List.of(1, 3, 5, 6, 8, 10, 12);
+
+    private static final String SCALE_DORIAN_NAME = "Dorycka";
+    private static final List<Integer> DORIAN_NOTES_VALUES = List.of(1, 3, 4, 6, 8, 10, 11);
+
+    private static final String SCALE_PHRYGIAN_NAME = "Frygijska";
+    private static final List<Integer> PHRYGIAN_NOTES_VALUES = List.of(1, 2, 4, 6, 8, 10, 11);
+
+    private static final String SCALE_LYDIAN_NAME = "Lidyjska";
+    private static final List<Integer> PHRYIAN_NOTES_VALES = List.of(1, 3, 5, 7, 8, 10, 12);
 
     private final TraineeRepository traineeRepository;
     private final ScaleRepository scaleRepository;
@@ -25,23 +34,8 @@ public class DBInitializer implements CommandLineRunner {
     public void run(String... args) throws Exception {
         Trainee defaultAdmin = new Trainee(null, "Default", true);
         traineeRepository.save(defaultAdmin);
-        saveScaleIfNotExists(SCALE_JONSKA_NAME, JONSKA_NOTES_VALUES);
-        if (scaleRepository.findByName("Jońska").isEmpty()) {
-            Scale ionian = new Scale(null, "Jońska", 1, 3, 5, 6, 8, 10, 12, defaultAdmin.getName());
-            scaleRepository.save(ionian);
-        }
-        if (scaleRepository.findByName("Dorycka").isEmpty()) {
-            Scale dorian = new Scale(null, "Dorycka", 1, 3, 4, 6, 8, 10, 11, defaultAdmin.getName());
-            scaleRepository.save(dorian);
-        }
-        if (scaleRepository.findByName("Frygijska").isEmpty()) {
-            Scale phrygian = new Scale(null, "Frygijska", 1, 2, 4, 6, 8, 10, 11, defaultAdmin.getName());
-            scaleRepository.save(phrygian);
-        }
-        if (scaleRepository.findByName("Lidyjska").isEmpty()) {
-            Scale lydian = new Scale(null, "Lidyjska", 1, 3, 5, 7, 8, 10, 12, defaultAdmin.getName());
-            scaleRepository.save(lydian);
-        }
+
+
         if (scaleRepository.findByName("Miksolidyjska").isEmpty()) {
             Scale mixolydian = new Scale(null, "Miksolidyjska", 1, 3, 5, 6, 8, 10, 11, defaultAdmin.getName());
             scaleRepository.save(mixolydian);
