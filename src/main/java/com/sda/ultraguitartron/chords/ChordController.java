@@ -16,8 +16,8 @@ public class ChordController {
 
     @GetMapping("/chords")
     @ResponseStatus(HttpStatus.OK) //Endpoint do dostania wszystkich chordów
-    public List<ChordDto> getAllChords() {
-        return chordCrudService.fetchAllChords();
+    public Chords getAllChords() {
+        return new Chords(chordCrudService.fetchAllChords());
     }
 
     //web dto

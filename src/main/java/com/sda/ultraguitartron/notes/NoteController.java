@@ -18,8 +18,8 @@ public class NoteController {
 
     @GetMapping("/notes")
     @ResponseStatus(code = HttpStatus.OK)
-    public List<NoteDto> getAllNote() {
-        return new ArrayList<>(noteService.fetchAll());
+    public Notes getAllNote() {
+        return new Notes(noteService.fetchAll());
     }
 
     @GetMapping("/notes/{id}")
