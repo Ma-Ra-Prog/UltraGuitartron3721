@@ -1,14 +1,15 @@
 package com.sda.ultraguitartron.tuning;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.sda.ultraguitartron.exceptions.IllegalTraineeAccessException;
 import com.sda.ultraguitartron.exceptions.TuningNotFoundException;
 import com.sda.ultraguitartron.trainee.Trainee;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -32,13 +33,6 @@ public class TuningCrudService {
         return tuningMapper.mapToTuningDto(tuning);
     }
 
-    public TuningDto fetchTuningByTuningName(String tuningName) {
-        Tuning tuning = tuningRepository
-                .findByTuningName(tuningName)
-                .orElseThrow(() -> new TuningNotFoundException("Cannot find tuning with name: " + tuningName));
-        return tuningMapper.mapToTuningDto(tuning);
-    }
-
     public TuningDto createNewTuning(TuningDto tuningDto, Trainee trainee) {
         Tuning tuning = tuningMapper.mapToTuning(tuningDto);
         tuning.setCreatedBy(trainee.getName());
@@ -46,14 +40,23 @@ public class TuningCrudService {
     }
 
     public TuningDto deleteTuningByTuningName(String tuningName, Trainee trainee) {
-        Tuning tuning;
-        if (trainee.getName().equals(fetchTuningByTuningName(tuningName).getCreatedBy()) || trainee.isAdminPermission()) {
-            tuning = tuningRepository
+        if (isAllowedToRemoveTuning(trainee, tuningName)) {
+            return tuningRepository
                     .deleteTuningByTuningName(tuningName)
+                    .map(tuningMapper::mapToTuningDto)
                     .orElseThrow(() -> new TuningNotFoundException("Cannot find and delete tuning with name: " + tuningName));
-        } else {
-            throw new IllegalTraineeAccessException("You cannot delete tuning with name: " + tuningName);
         }
+        throw new IllegalTraineeAccessException("You cannot delete tuning with name: " + tuningName);
+    }
+
+    private boolean isAllowedToRemoveTuning(Trainee trainee, String tuningName) {
+        return trainee.getName().equals(fetchTuningByTuningName(tuningName).getCreatedBy()) || trainee.isAdminPermission();
+    }
+
+    public TuningDto fetchTuningByTuningName(String tuningName) {
+        Tuning tuning = tuningRepository
+            .findByTuningName(tuningName)
+            .orElseThrow(() -> new TuningNotFoundException("Cannot find tuning with name: " + tuningName));
         return tuningMapper.mapToTuningDto(tuning);
     }
 }

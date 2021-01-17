@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -52,6 +53,10 @@ public class ScaleCrudService {
         ScaleDto scaleDto = fetchScaleByName(scaleName);
         Long rootNoteId = noteService.fetchNoteByName(rootNote).getId() - 1;
         List<String> noteList = new ArrayList<>();
+
+        Stream.of(scaleDto.getFirstNote(), scaleDto.getSecondNote())
+            .map(x -> ifGreaterThanTwelveThenMinusTwelve(Long.valueOf(x) + rootNoteId))
+            .collect(Collectors.toList());
 
         noteList.add(noteService
                 .fetchNoteById(ifGreaterThanTwelveThenMinusTwelve(Long.valueOf(scaleDto.getFirstNote()) + rootNoteId))
