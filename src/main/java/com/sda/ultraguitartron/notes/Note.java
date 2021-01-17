@@ -22,5 +22,5 @@ public class Note {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     @NotNull
-    String note;
+    String name;
 }
