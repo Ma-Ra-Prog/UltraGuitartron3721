@@ -21,10 +21,6 @@ public class ScaleController {
         return new ArrayList<>(scaleCrudService
                 .fetchAllScales());
     }
-    /*
-    [
-    ]
-     */
 
     @GetMapping("/scales/{id}")
     @ResponseStatus(code = HttpStatus.OK)
@@ -47,7 +43,7 @@ public class ScaleController {
 
     @GetMapping(value = "/scales/", params = {"scaleName", "rootNote"})
     @ResponseStatus(code = HttpStatus.OK)
-    public SpecificScale getScaleByNameAndRoot(@PathVariable String scaleName, @PathVariable String rootNote) {
+    public SpecificScale getScaleByNameAndRoot(@PathVariable String scaleName, @PathVariable() String rootNote) {
         return scaleCrudService.fetchScaleByNameAndRootNote(scaleName, rootNote);
     }
 }
