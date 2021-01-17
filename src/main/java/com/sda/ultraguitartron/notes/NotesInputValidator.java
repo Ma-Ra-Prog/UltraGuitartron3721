@@ -1,21 +1,22 @@
 package com.sda.ultraguitartron.notes;
 
 import com.sda.ultraguitartron.exceptions.InvalidNoteInputException;
+import com.sda.ultraguitartron.exceptions.NoteNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
 public class NotesInputValidator {
 
-    private final NoteService noteService;
+    private final NoteRepository noteRepository;
+    private final NoteMapper noteMapper;
     private final List<NoteInputModifier> noteInputModifiers;
     private final List<Integer> LIST_OF_COMPLICATED_NOTE_ENTRIES_IDS = List.of(2, 4, 7, 9, 11);
 
-    public String validate(String input){
+    public String validate(String input) {
         String validatedInput = toValidNoteRefactor(refactorToUppercaseAndValidateLength(input));
         finalValidator(validatedInput);
         return validatedInput;
@@ -69,15 +70,15 @@ public class NotesInputValidator {
 
     public String toValidNoteRefactor(String input) {
         for (int id : LIST_OF_COMPLICATED_NOTE_ENTRIES_IDS) {
-            if (input.equals(noteService.fetchNoteById((long) id).getNote().substring(0, 2)) || input.equals(noteService.fetchNoteById((long) id).getNote().substring(3, 5))) {
-                return input = noteService.fetchNoteById((long) id).getNote();
+            if (input.equals(fetchNoteValueById(id).substring(0, 2)) || input.equals(fetchNoteValueById(id).substring(3, 5))) {
+                return input = fetchNoteValueById(id);
             }
         }
         return input;
     }
 
     public void finalValidator(String input) {
-        if (!input.equals(noteService.fetchNoteByName(input).getNote())) {
+        if (!input.equals(fetchNoteValueByName(input))) {
             throw new InvalidNoteInputException("Invalid note input: " + input + " try format X#/Yb or X# or Yb");
         }
     }
@@ -97,4 +98,16 @@ public class NotesInputValidator {
 //                .get(0);
 //        return input = noteService.fetchNoteById((long) fullNoteId).getNote();
 //    }
+
+    private String fetchNoteValueById(int id) {
+        return noteRepository.findById((long) id)
+                .map(noteMapper::mapToNoteDto)
+                .orElseThrow(() -> new NoteNotFoundException("Note not found")).getNote();
+    }
+
+    private String fetchNoteValueByName(String name) {
+        return noteRepository.findByNote(name)
+                .map(noteMapper::mapToNoteDto)
+                .orElseThrow(() -> new NoteNotFoundException("Note not found")).getNote();
+    }
 }
