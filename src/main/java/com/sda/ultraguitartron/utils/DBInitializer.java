@@ -63,7 +63,7 @@ public class DBInitializer implements CommandLineRunner {
 
     private void saveIfScaleNotExist(Trainee trainee, String scaleName, List<Integer> notesValues) {
         if (scaleRepository.findByName(scaleName).isEmpty()) {
-            Scale locrian = Scale.builder()
+            Scale scale = Scale.builder()
                     .id(null)
                     .firstNote(notesValues.get(0))
                     .secondNote(notesValues.get(1))
@@ -74,7 +74,7 @@ public class DBInitializer implements CommandLineRunner {
                     .seventhNote(notesValues.get(6))
                     .createdBy(trainee.getName())
                     .build();
-            scaleRepository.save(locrian);
+            scaleRepository.save(scale);
         }
     }
 }
