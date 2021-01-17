@@ -18,7 +18,7 @@ public class Scale {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 //    @Column(name = "scale_name")
-    private String scaleName;
+    private String name;
 //    @Column(name = "first_note")
     private Integer firstNote;
 //    @Column(name = "second_note")
