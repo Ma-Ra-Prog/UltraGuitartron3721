@@ -47,7 +47,7 @@ public class ScaleController {
 
     @GetMapping("/scales/{scaleName}/{rootNote}")
     @ResponseStatus(code = HttpStatus.OK)
-    public SpecificScale getScaleByNameAndRoot(@PathVariable String scaleName, @PathVariable String rootNote) {
+    public SpecificScale getScaleByNameAndRoot(@PathVariable String scaleName, @RequestParam(required = false, defaultValue = "C") String rootNote) {
         return scaleCrudService.fetchScaleByNameAndRootNote(scaleName, rootNote);
     }
 }

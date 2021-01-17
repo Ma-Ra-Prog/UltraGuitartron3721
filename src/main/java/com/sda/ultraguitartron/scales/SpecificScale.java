@@ -1,6 +1,5 @@
 package com.sda.ultraguitartron.scales;
 
-import com.sda.ultraguitartron.notes.Note;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SpecificScale {
-    private String scaleName;
-    private List<String> notesList;
+
+private String name;
+private List<String> noteList;
 }
