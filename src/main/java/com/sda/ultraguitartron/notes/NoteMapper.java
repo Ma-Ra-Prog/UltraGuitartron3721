@@ -7,7 +7,7 @@ public class NoteMapper {
 
     NoteDto mapToNoteDto(Note note) {
         return NoteDto.builder()
-                .note(note.getNote())
+                .note(note.getName())
                 .build();
     }
 }

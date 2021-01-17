@@ -8,7 +8,7 @@ public class ScaleMapper {
     public ScaleDto mapToScaleDto(Scale scale) {
         return ScaleDto.builder()
                 .id(scale.getId())
-                .scaleName(scale.getScaleName())
+                .scaleName(scale.getName())
                 .firstNote(scale.getFirstNote())
                 .secondNote(scale.getSecondNote())
                 .thirdNote(scale.getThirdNote())
@@ -34,7 +34,7 @@ public class ScaleMapper {
 
     public Scale mapToScale(ScaleDefinition scaleDefinition) {
         return Scale.builder()
-                .scaleName(scaleDefinition.getScaleName())
+                .name(scaleDefinition.getScaleName())
                 .firstNote(scaleDefinition.getFirstNote())
                 .secondNote(scaleDefinition.getSecondNote())
                 .thirdNote(scaleDefinition.getThirdNote())
