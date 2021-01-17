@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Data
@@ -16,6 +17,6 @@ import javax.validation.constraints.NotNull;
 public class NoteDto {
 
     Long id;
-    @NotNull
+    @NotBlank
     String note;
 }

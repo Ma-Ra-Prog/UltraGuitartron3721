@@ -16,7 +16,6 @@ public class NoteService {
 
     private final NoteRepository noteRepository;
     private final NoteMapper noteMapper;
-    private final NotesInputValidator notesInputValidator;
 
     public NoteDto fetchNoteById(Long id) {
         return noteRepository.findById(id)
@@ -32,7 +31,7 @@ public class NoteService {
     }
 
     public NoteDto fetchNoteByName(String name) {
-        return noteRepository.findByNote(notesInputValidator.validate(name))
+        return noteRepository.findByNote(name)
                 .map(noteMapper::mapToNoteDto)
                 .orElseThrow(NoSuchElementException::new);
     }

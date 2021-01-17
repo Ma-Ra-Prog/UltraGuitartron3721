@@ -17,22 +17,22 @@ public class Scale {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "scale_name")
+//    @Column(name = "scale_name")
     private String scaleName;
-    @Column(name = "first_note")
+//    @Column(name = "first_note")
     private Integer firstNote;
-    @Column(name = "second_note")
+//    @Column(name = "second_note")
     private Integer secondNote;
-    @Column(name = "third_note")
+//    @Column(name = "third_note")
     private Integer thirdNote;
-    @Column(name = "fourth_note")
+//    @Column(name = "fourth_note")
     private Integer fourthNote;
-    @Column(name = "fifth_note")
+//    @Column(name = "fifth_note")
     private Integer fifthNote;
-    @Column(name = "sixth_note")
+//    @Column(name = "sixth_note")
     private Integer sixthNote;
-    @Column(name = "seventh_note")
+//    @Column(name = "seventh_note")
     private Integer seventhNote;
-    @Column(name = "creator")
+//    @Column(name = "creator")
     private String createdBy;
 }

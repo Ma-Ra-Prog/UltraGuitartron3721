@@ -20,6 +20,8 @@ public class ChordCrudService { // ChordCrudService
     private final ChordMapper chordMapper;
     private final ChordInputValidator chordInputValidator;
     private final NoteService noteService;
+    private final int CONSTANT_REMOVING_PLUS_ONE_SHIFT_ISSUE = 1;
+    private final int CONSTANT_VALUE_OF_THE_ID_OF_THE_LAST_NOTE_IN_DB = 12;
 
     ChordDto fetchChordById(Long id) {
         Chord chord = chordRepository.findById(id)
@@ -51,16 +53,16 @@ public class ChordCrudService { // ChordCrudService
 
     public SpecificChord fetchChordByNameAndRootNote(String chordName, String rootNote) {
         ChordDto chordDto = fetchChordByName(chordName);
-        Long rootNoteId = noteService.fetchNoteByName(rootNote).getId()-1;
+        Long rootNoteId = noteService.fetchNoteByName(rootNote).getId()-CONSTANT_REMOVING_PLUS_ONE_SHIFT_ISSUE;
         final List<String> notesList = Stream.of(chordDto.getFirstNote(), chordDto.getSecondNote(), chordDto.getThirdNote(), chordDto.getFourthNote())
-                .map(note -> noteService.fetchNoteById(ifGreaterThanTwelveThenMinusTwelve(Long.valueOf(note) + rootNoteId)).getNote())
+                .map(note -> noteService.fetchNoteById(ifGreaterThanLastIdValueThenStartFromFirst(Long.valueOf(note) + rootNoteId)).getNote())
                 .collect(Collectors.toUnmodifiableList());
         return new SpecificChord(chordName, notesList);
     }
 
-    private Long ifGreaterThanTwelveThenMinusTwelve(Long input){
-        if (input>12){
-            return input-12;
+    private Long ifGreaterThanLastIdValueThenStartFromFirst(Long input){
+        if (input>CONSTANT_VALUE_OF_THE_ID_OF_THE_LAST_NOTE_IN_DB){
+            return input-CONSTANT_VALUE_OF_THE_ID_OF_THE_LAST_NOTE_IN_DB;
         } else {
             return input;
         }
