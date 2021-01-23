@@ -32,14 +32,13 @@ public class ChordCrudService { // ChordCrudService
     List<ChordDto> fetchAllChords() {
         return chordRepository.findAll()
                 .stream()
-                .map(chordMapper::mapToSimpleChordDto)
+                .map(chordMapper::mapToChordDto)
                 .collect(Collectors.toList());
     }
 
     ChordDto createNewChord(ChordDto chordDto, Trainee trainee) {
-        ChordDefinition chordDefinition = chordMapper.mapToChordDefinition(chordDto);
-        chordInputValidator.isInputDataCorrect(chordDefinition);
-        Chord chord = chordMapper.mapToChord(chordDefinition);
+        chordInputValidator.isInputDataCorrect(chordDto);
+        Chord chord = chordMapper.mapToChord(chordDto);
         chord.setCreatedBy(trainee.getName());
         return chordMapper.mapToChordDto(chordRepository.save(chord));
     }
