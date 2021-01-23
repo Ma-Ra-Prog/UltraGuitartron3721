@@ -8,7 +8,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RestControllerAdvice //@ControllerAdvice + @ResponseBody
@@ -69,9 +72,15 @@ public class ExceptionHandlerController {
 //        log.error(exception.getMessage());
 //    }
 //
-    @ExceptionHandler
+    @ExceptionHandler(InvalidNoteInputException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     void invalidNoteInputException(InvalidNoteInputException exception) {
+        log.debug(exception.getMessage());
+    }
+
+    @ExceptionHandler(NoteNotFoundException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    void noteNotFoundException(NoteNotFoundException exception){
         log.debug(exception.getMessage());
     }
 //

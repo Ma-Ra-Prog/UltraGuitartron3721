@@ -28,7 +28,7 @@ public class NoteController {
         return noteService.fetchNoteById(id);
     }
 
-    @GetMapping("/notes/{name}")
+    @GetMapping("/notes/name/{name}") //by nie było problemem z dwoma endpointami o takiej samej ścieżce i różniących się tylko inputem, dodane jest name by było wiadomo, że tu jest szukanie po nazwie
     @ResponseStatus(code = HttpStatus.OK)
     public NoteDto getNoteByName(@PathVariable String name){
         return noteService.fetchNoteByName(name);

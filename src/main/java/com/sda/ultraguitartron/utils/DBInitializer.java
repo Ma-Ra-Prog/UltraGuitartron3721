@@ -58,6 +58,7 @@ public class DBInitializer implements CommandLineRunner {
         if (chordRepository.findByChordName(chordName).isEmpty()) {
             Chord chord = Chord.builder()
                     .id(null)
+                    .chordName(chordName)
                     .firstNote(notesValues.get(0))
                     .secondNote(notesValues.get(1))
                     .thirdNote(notesValues.get(2))

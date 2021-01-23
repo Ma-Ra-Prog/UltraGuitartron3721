@@ -10,8 +10,8 @@ import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
 @Transactional
+@RequiredArgsConstructor
 public class NoteService {
 
     private final NoteRepository noteRepository;
