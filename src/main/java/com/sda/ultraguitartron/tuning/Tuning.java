@@ -1,14 +1,14 @@
 package com.sda.ultraguitartron.tuning;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.sda.ultraguitartron.trainee.Trainee;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -30,4 +30,7 @@ public class Tuning {
     private String sixthStringNote;
     private String seventhStringNote;
     private String createdBy;
+    @OneToMany(mappedBy = "currentTuning")
+    @JsonBackReference
+    private List<Trainee> traineeList;
 }
