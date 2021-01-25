@@ -1,14 +1,11 @@
 package com.sda.ultraguitartron.chords;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.sda.ultraguitartron.counting.chords.CountingChords;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -26,10 +23,9 @@ public class Chord {
     private Integer thirdNote;
     private Integer fourthNote;
     private String createdBy;
-
-
-//    @ManyToMany      //to hint do relacji many to many
-//    @ToString.Exclude
-//    @EqualsAndHashCode.Exclude
-//    private List<String> asdqw;
+    @OneToMany(mappedBy = "chord")
+    @JsonBackReference
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private List<CountingChords> countingChordsList;
 }

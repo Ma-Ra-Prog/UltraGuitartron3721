@@ -1,5 +1,6 @@
 package com.sda.ultraguitartron.trainee;
 
+import com.sda.ultraguitartron.tuning.Tuning;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,5 +19,8 @@ public class TraineeDto {
     Long id;
     @NotBlank(message = "Name is mandatory.")
     String name;
+    @NotBlank(message = "Password is mandatory.")
+    String password;
     boolean adminPermission;
+    Tuning currentTuning;
 }

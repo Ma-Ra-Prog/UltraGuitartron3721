@@ -1,16 +1,13 @@
 package com.sda.ultraguitartron.notes;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.sda.ultraguitartron.counting.chords.CountingChords;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Data
 @Entity
@@ -24,4 +21,9 @@ public class Note {
     Long id;
     @NotBlank
     String note;
+    @OneToMany(mappedBy = "note")
+    @JsonBackReference
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private List<CountingChords> countingChordsList;
 }

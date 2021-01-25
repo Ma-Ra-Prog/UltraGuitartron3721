@@ -15,8 +15,8 @@ public class TraineeController {
 
     @GetMapping("/Trainees")
     @ResponseStatus(HttpStatus.OK)
-    public List<TraineeDto> getAllTrainees() {
-        return traineeCrudService.fetchAllTrainees();
+    public Trainees getAllTrainees() {
+        return new Trainees(traineeCrudService.fetchAllTrainees());
     }
 
     @GetMapping("/Trainees/{id}")

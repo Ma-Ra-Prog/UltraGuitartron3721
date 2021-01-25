@@ -10,6 +10,7 @@ public class TraineeMapper {
                 .id(trainee.getId())
                 .name(trainee.getName())
                 .adminPermission(trainee.isAdminPermission())
+                .currentTuning(trainee.getCurrentTuning())
                 .build();
     }
 
