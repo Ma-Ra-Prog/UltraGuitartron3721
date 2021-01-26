@@ -43,7 +43,7 @@ public class ChordCrudService { // ChordCrudService
         return chordMapper.mapToChordDto(chordRepository.save(chord));
     }
 
-    ChordDto fetchChordByName(String chordName){
+    ChordDto fetchChordByName(String chordName) {
         Chord chord = chordRepository
                 .findByChordName(chordName)
                 .orElseThrow(() -> new ChordNotFoundException("Cannot find chord with name: " + chordName));
@@ -52,16 +52,16 @@ public class ChordCrudService { // ChordCrudService
 
     public SpecificChord fetchChordByNameAndRootNote(String chordName, String rootNote) {
         ChordDto chordDto = fetchChordByName(chordName);
-        Long rootNoteId = noteService.fetchNoteByName(rootNote).getId()-CONSTANT_REMOVING_PLUS_ONE_SHIFT_ISSUE;
+        Long rootNoteId = noteService.fetchNoteByName(rootNote).getId() - CONSTANT_REMOVING_PLUS_ONE_SHIFT_ISSUE;
         final List<String> notesList = Stream.of(chordDto.getFirstNote(), chordDto.getSecondNote(), chordDto.getThirdNote(), chordDto.getFourthNote())
                 .map(note -> noteService.fetchNoteById(ifGreaterThanLastIdValueThenStartFromFirst(Long.valueOf(note) + rootNoteId)).getNote())
                 .collect(Collectors.toUnmodifiableList());
         return new SpecificChord(chordName, notesList);
     }
 
-    private Long ifGreaterThanLastIdValueThenStartFromFirst(Long input){
-        if (input>CONSTANT_VALUE_OF_THE_ID_OF_THE_LAST_NOTE_IN_DB){
-            return input-CONSTANT_VALUE_OF_THE_ID_OF_THE_LAST_NOTE_IN_DB;
+    private Long ifGreaterThanLastIdValueThenStartFromFirst(Long input) {
+        if (input > CONSTANT_VALUE_OF_THE_ID_OF_THE_LAST_NOTE_IN_DB) {
+            return input - CONSTANT_VALUE_OF_THE_ID_OF_THE_LAST_NOTE_IN_DB;
         } else {
             return input;
         }

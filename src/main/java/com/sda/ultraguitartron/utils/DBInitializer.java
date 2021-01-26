@@ -3,7 +3,6 @@ package com.sda.ultraguitartron.utils;
 
 import com.sda.ultraguitartron.chords.Chord;
 import com.sda.ultraguitartron.chords.ChordRepository;
-import com.sda.ultraguitartron.exceptions.TuningNotFoundException;
 import com.sda.ultraguitartron.notes.Note;
 import com.sda.ultraguitartron.notes.NoteRepository;
 import com.sda.ultraguitartron.trainee.Trainee;
@@ -99,8 +98,8 @@ public class DBInitializer implements CommandLineRunner {
         }
     }
 
-    private void saveIfNoteNotExist(String noteValue){
-        if(noteRepository.findByNote(noteValue).isEmpty()){
+    private void saveIfNoteNotExist(String noteValue) {
+        if (noteRepository.findByNote(noteValue).isEmpty()) {
             Note note = Note.builder()
                     .id(null)
                     .note(noteValue)
@@ -110,9 +109,9 @@ public class DBInitializer implements CommandLineRunner {
         }
     }
 
-    private void saveTuningIfNotExist(Trainee trainee, String tuningName, Integer stringNumber, List<String> notesValues){
-        if(tuningRepository.findByTuningName(tuningName).isEmpty()){
-            if(stringNumber==6){  //todo: metoda do zmiany na switcha od 4 do 7 strun (może więcej jeśli rozbuduje się program i encję tuningu)
+    private void saveTuningIfNotExist(Trainee trainee, String tuningName, Integer stringNumber, List<String> notesValues) {
+        if (tuningRepository.findByTuningName(tuningName).isEmpty()) {
+            if (stringNumber == 6) {  //todo: metoda do zmiany na switcha od 4 do 7 strun (może więcej jeśli rozbuduje się program i encję tuningu)
                 Tuning tuning = Tuning.builder()
                         .id(null)
                         .tuningName(tuningName)

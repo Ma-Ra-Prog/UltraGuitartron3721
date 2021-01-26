@@ -37,7 +37,7 @@ public class ScaleController {
 
     @GetMapping("/scales/{name}")
     @ResponseStatus(code = HttpStatus.OK)
-    public ScaleDto getScaleByName(@PathVariable String name){
+    public ScaleDto getScaleByName(@PathVariable String name) {
         return scaleCrudService.fetchScaleByName(name);
     }
 }

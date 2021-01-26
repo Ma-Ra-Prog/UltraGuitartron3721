@@ -60,7 +60,7 @@ public class ExceptionHandlerController {
 //        return new ErrorMessage(fieldNamesToErrorMessages);
 //    }
 
-//    @ExceptionHandler
+    //    @ExceptionHandler
 //    @ResponseStatus(HttpStatus.NOT_FOUND)
 //    void scaleNotFoundException(ScaleNotFoundException exception) {
 //        log.error(exception.getMessage());
@@ -80,7 +80,7 @@ public class ExceptionHandlerController {
 
     @ExceptionHandler(NoteNotFoundException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    void noteNotFoundException(NoteNotFoundException exception){
+    void noteNotFoundException(NoteNotFoundException exception) {
         log.debug(exception.getMessage());
     }
 //

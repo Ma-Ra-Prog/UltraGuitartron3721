@@ -7,9 +7,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @RestController
 @RequiredArgsConstructor
 public class NoteController {
@@ -28,9 +25,10 @@ public class NoteController {
         return noteService.fetchNoteById(id);
     }
 
-    @GetMapping("/notes/name/{name}") //by nie było problemem z dwoma endpointami o takiej samej ścieżce i różniących się tylko inputem, dodane jest name by było wiadomo, że tu jest szukanie po nazwie
+    @GetMapping("/notes/name/{name}")
+    //by nie było problemem z dwoma endpointami o takiej samej ścieżce i różniących się tylko inputem, dodane jest name by było wiadomo, że tu jest szukanie po nazwie
     @ResponseStatus(code = HttpStatus.OK)
-    public NoteDto getNoteByName(@PathVariable String name){
+    public NoteDto getNoteByName(@PathVariable String name) {
         return noteService.fetchNoteByName(name);
     }
 }

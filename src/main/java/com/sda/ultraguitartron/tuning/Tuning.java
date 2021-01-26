@@ -1,7 +1,6 @@
 package com.sda.ultraguitartron.tuning;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.sda.ultraguitartron.counting.chords.CountingChords;
 import com.sda.ultraguitartron.trainee.Trainee;
 import lombok.*;
 
