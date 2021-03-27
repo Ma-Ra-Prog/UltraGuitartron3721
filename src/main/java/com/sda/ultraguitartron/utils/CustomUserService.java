@@ -24,6 +24,3 @@ public class CustomUserService implements UserDetailsService {
         return new TraineeUserAdapter(trainee);
     }
 }
-
-//powiedziec springowi, aby używał tego servisu jako domyślny
-//sprawdzić czy traineeMapper może mieć metodę publiczną.
